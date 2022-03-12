@@ -3,7 +3,9 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-const Add = () => {
+const Add = (props) => {
+  props.setPageTitle("Add coffee bean")
+
   const [ details, setDetails ] = useState({
     name: "",
     roaster: "",

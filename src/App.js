@@ -1,10 +1,10 @@
 import './App.css'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import CoffeeBeanIndex from './components/coffee-beans/Index'
-import CoffeeBeanAdd from './components/coffee-beans/Add'
-import Dashboard from './components/Dashboard'
+import BeanIndex from './components/coffee-beans/Index'
+import BeanAdd from './components/coffee-beans/Add'
+import BrewIndex from './components/brews/Index'
 
 import {
   BrowserRouter as Router,
@@ -30,9 +30,9 @@ const userNavigation = [
 ]
 
 const routes = {
-  "/": Dashboard,
-  "/coffee-beans": CoffeeBeanIndex,
-  "/coffee-beans/add-bean": CoffeeBeanAdd,
+  "/": BrewIndex,
+  "/coffee-beans": BeanIndex,
+  "/coffee-beans/add-bean": BeanAdd,
 }
 
 function classNames(...classes) {
@@ -40,16 +40,10 @@ function classNames(...classes) {
 }
 
 export default function App() {
+  const [ pageTitle, setPageTitle ] = useState("Default title")
+
   return (
     <Router>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div className="min-h-full">
         <div className="bg-gray-800">
           <Disclosure as="nav" className="bg-gray-800">
@@ -58,13 +52,17 @@ export default function App() {
                 <div className="container">
                   <div className="border-b border-gray-700">
                     <div className="flex items-center justify-between h-16 px-4 sm:px-0">
-                      <div className="flex items-center">
+                      <div className="flex items-center justify-center">
                         <div className="flex-shrink-0">
-                          <img
-                            className="h-8 w-8"
-                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                            alt="Workflow"
-                          />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="36"
+                            height="36"
+                            viewBox="0 0 24 24"
+                            className={"fill-white"}
+                          >
+                            <path d="M13 20h-7c-2.174-3.004-4-6.284-4-12h15c0 5.667-1.88 9.089-4 12zm5.119-10c-.057.701-.141 1.367-.252 2h1.55c-.449 1.29-1.5 2.478-2.299 2.914-.358 1.038-.787 1.981-1.26 2.852 3.274-1.143 5.846-4.509 6.142-7.766h-3.881zm-7.745-3.001c4.737-4.27-.98-4.044.117-6.999-3.783 3.817 1.409 3.902-.117 6.999zm-2.78.001c3.154-2.825-.664-3.102.087-5.099-2.642 2.787.95 2.859-.087 5.099zm9.406 15h-15v2h15v-2z"/>
+                          </svg>
                         </div>
                         <div className="hidden md:block">
                           <div className="ml-10 flex items-baseline space-x-4">
@@ -202,7 +200,7 @@ export default function App() {
           </Disclosure>
           <header className="container py-10">
             <div>
-              <h1 className="text-3xl font-bold text-white">Page title</h1>
+              <h1 className="text-3xl font-bold text-white">{ pageTitle }</h1>
             </div>
           </header>
         </div>
@@ -210,7 +208,7 @@ export default function App() {
         <main className={"mt-8 container"}>
           <Routes>
             {Object.entries(routes).map(([routeUrl, Component], key) => {
-              return <Route key={key} path={routeUrl} element={<Component />} />
+              return <Route key={key} path={routeUrl} element={<Component setPageTitle={setPageTitle}/>} />
             })}
           </Routes>
         </main>

@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {LightBulbIcon, RefreshIcon, ShoppingCartIcon, ExclamationIcon, PlusCircleIcon} from '@heroicons/react/solid'
-import {Warning} from "postcss";
 import {Link} from "react-router-dom";
 
-const positions = [
-  {
-    id: 1,
-    name: "Brazil Bom Jesus",
-    roaster: "Strangers Coffee",
-    tastingNotes: "Chocolate / Hazelnut / Praline",
-    strength: 5
-  }
-]
+export default function Index(props) {
+  props.setPageTitle("Coffee beans")
 
-export default function Index() {
   const [errorMessage, setErrorMessage] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [coffeeBeans, setCoffeeBeans] = useState([])
